@@ -237,7 +237,7 @@
 		var hue = ((window.rotaryValue || 0) + 40) * 255 / 80;
 		var hslString = "hsl(" + hue  + ", 100%, 50%)";
 		ambient.color = new THREE.Color(hslString);
-		console.log(hslString);
+		// console.log(hslString);
 
 		// call each update function
 		onRenderFcts.forEach(function(onRenderFct) {
