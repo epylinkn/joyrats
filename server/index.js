@@ -3,11 +3,38 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+const http = require('http');
 const config = require('../config/webpack.config.js');
+const url = require('url');
+
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+
+const WebSocket = require('ws');
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
+
+wss.broadcast = function broadcast(data) {
+  wss.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(data);
+    }
+  });
+};
+
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(data) {
+    // Broadcast to everyone else.
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
+    });
+  });
+});
 
 if (isDeveloping) {
   const compiler = webpack(config);
@@ -37,11 +64,7 @@ if (isDeveloping) {
   });
 }
 
-app.listen(port, (err) => {
-  if (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-  }
-  // eslint-disable-next-line no-console
-  console.info(`Listening on port ${port}. Open up http://localhost:${port}/ in your browser.`);
+
+server.listen(port, function listening() {
+  console.log('Listening on %d', server.address().port);
 });
