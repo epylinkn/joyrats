@@ -26,6 +26,19 @@
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Init
 	//////////////////////////////////////////////////////////////////////////////////
+	// const ws = new WebSocket("ws://localhost:3000");
+	const ws = new WebSocket("wss://radiant-dusk-69055.herokuapp.com");
+
+	window.rotaryValue = 0;
+
+	ws.onopen = function () {
+	  console.log('connection opened');
+	};
+
+	ws.onmessage = function (evt) {
+	  console.log(evt.data);
+	  window.rotaryValue = parseInt(evt.data);
+	};
 
 	// init renderer
 	var renderer = new THREE.WebGLRenderer({
@@ -37,7 +50,7 @@
 	renderer.shadowMap.type = THREE.PCFSoftShadowMap
 	renderer.shadowMap.enabled = true;
 
-	renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+	renderer.setClearColor(new THREE.Color('magenta'), 0);
 	// renderer.setPixelRatio( 1/2 );
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
@@ -52,7 +65,7 @@
 	// init scene and camera
 	var scene = new THREE.Scene();
 
-	var ambient = new THREE.AmbientLight(0x666666);
+	var ambient = new THREE.AmbientLight(0xc0ffee);
 	scene.add(ambient);
 
 	var directionalLight = new THREE.DirectionalLight('white');
@@ -220,6 +233,12 @@
 		lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60
 		var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
 		lastTimeMsec = nowMsec
+
+		var hue = ((window.rotaryValue || 0) + 40) * 255 / 80;
+		var hslString = "hsl(" + hue  + ", 100%, 50%)";
+		ambient.color = new THREE.Color(hslString);
+		console.log(hslString);
+
 		// call each update function
 		onRenderFcts.forEach(function(onRenderFct) {
 			onRenderFct(deltaMsec / 1000, nowMsec / 1000)
