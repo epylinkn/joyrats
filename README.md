@@ -1,4 +1,12 @@
-# Webpack2/Express/Heroku Starter
+# KNOB AR SERVER
+
+One Paragraph of project description goes here
+
+## Getting Started
+
+This project was bootstrapped with a Webpack2/Express/Heroku Starter.
+
+### Webpack2/Express/Heroku Starter
 
 This is a very basic sample app to get you started using [Webpack 2](https://webpack.js.org/), [Express](http://expressjs.com/) and is setup to deploy to [Heroku](https://www.heroku.com/).
 
@@ -6,8 +14,6 @@ Features:
 
 * [HMR](https://webpack.js.org/concepts/hot-module-replacement/)
 * [SASS](http://sass-lang.com/)
-
-Note: this **does not** use React, Angular, or any other front-end framework. Pick your own when you're ready.
 
 ## Setup
 
@@ -24,10 +30,28 @@ First, you'll need a heroku account.
 - Follow the instructions to [link to your repository](https://devcenter.heroku.com/articles/git).
 - `git push heroku master` - Assuming you've set everything up correctly, this will deploy your app, and run the postinstall script in `package.json`.
 
-## Credits
+## Deployment
 
-Thanks to [christianalfoni](https://github.com/christianalfoni) for the excellent [Webpack 1 tutorial and example repo](https://github.com/christianalfoni/webpack-express-boilerplate). I got started there and then built this one once I realized I wanted to play with Webpack v2.
+Configure your heroku remote and then simply:
 
-## Notes
+```
+git push heroku
+```
 
-The `Heroku` part of this is really easy to change for your own build process. Dig into the npm scripts, and take a look at the production webpack config.
+## Authors
+
+* **Roland** - [rollasoul](https://github.com/rollasoul)
+* **Anthony** - [epylinkn](https://github.com/epylinkn)
+
+See also the list of
+[contributors](https://github.com/your/project/contributors) who
+participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the
+[LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+- j.fedderson
