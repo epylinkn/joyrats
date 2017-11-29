@@ -42,6 +42,7 @@ git push heroku
 
 * **Roland** - [rollasoul](https://github.com/rollasoul)
 * **Anthony** - [epylinkn](https://github.com/epylinkn)
+* **Brandon** - [bnew](https://github.com/bnew)
 
 See also the list of
 [contributors](https://github.com/your/project/contributors) who
