@@ -66,17 +66,18 @@
 	var scene = new THREE.Scene();
 
 	var ambient = new THREE.AmbientLight(0xc0ffee);
-	scene.add(ambient);
+	//scene.add(ambient);
 
 	var directionalLight = new THREE.DirectionalLight('white');
-	directionalLight.position.set(1, 2, 0.3).setLength(2)
+	directionalLight.position.set(1, 10, -6).setLength(2)
 	directionalLight.shadow.mapSize.set(128, 128)
 	directionalLight.shadow.camera.bottom = -0.6
 	directionalLight.shadow.camera.top = 0.6
 	directionalLight.shadow.camera.right = 0.6
 	directionalLight.shadow.camera.left = -0.6
 	directionalLight.castShadow = true;
-	// scene.add(new THREE.CameraHelper( directionalLight.shadow.camera ))
+
+	scene.add(new THREE.CameraHelper( directionalLight.shadow.camera ))
 	scene.add(directionalLight);
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -171,33 +172,20 @@
 
 	var markerRoot = new THREE.Group
 	scene.add(markerRoot)
-
-	// add a torus knot
-	// var geometry	= new THREE.CubeGeometry(1,1,1);
-	// var material	= new THREE.MeshNormalMaterial({
-	// 	transparent : true,
-	// 	opacity: 0.5,
-	// 	side: THREE.DoubleSide
-	// });
-	// var mesh	= new THREE.Mesh( geometry, material );
-	// mesh.position.y	= geometry.parameters.height/2
-	// markerRoot.add( mesh );
-
-	;
+;
 	(function() {
-		var geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16); // make it slightly larger for better view
-		var material = new THREE.MeshNormalMaterial();
-		var material = new THREE.MeshLambertMaterial();
+		var geometry = new THREE.ConeGeometry( 1, 2, 3 );
+		var material	= new THREE.MeshNormalMaterial();
+		var material	= new THREE.MeshLambertMaterial();
 		var mesh = new THREE.Mesh(geometry, material);
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		mesh.position.y = 0.7
 		markerRoot.add(mesh);
-		// point the directionalLight to the marker
 		directionalLight.target = mesh
 
 		onRenderFcts.push(function() {
-			mesh.rotation.x += 0.04;
+			mesh.rotation.y += 0.04;
 		})
 
 		// add a transparent ground-plane shadow-receiver
