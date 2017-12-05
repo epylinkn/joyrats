@@ -66,6 +66,23 @@
 	var scene = new THREE.Scene();
 
 	var ambient = new THREE.AmbientLight(0xc0ffee);
+	
+
+	var ourGlowColor = new THREE.Color("rgb(255, 255, 200)");
+	var glowIntensity = 1;
+	var glowLight = new THREE.PointLight(ourGlowColor,glowIntensity,0,2);
+	glowLight.castShadow = false;
+	scene.add(glowLight);
+
+	//debug by turning light into sphere
+	// var pointLightHelper = new THREE.PointLightHelper( glowLight, 2);
+	// scene.add( pointLightHelper );
+	// var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
+	// glowLight.physicallyCorrectLights = true;
+	// glowLight.add( new THREE.Mesh( sphere, new THREE.MeshPhongMaterial( { color: 0xff0000 } ) ) )
+				
+
+
 	//scene.add(ambient);
 
 	var directionalLight = new THREE.DirectionalLight('white');
@@ -77,7 +94,7 @@
 	directionalLight.shadow.camera.left = -0.6
 	directionalLight.castShadow = true;
 
-	scene.add(new THREE.CameraHelper( directionalLight.shadow.camera ))
+	//scene.add(new THREE.CameraHelper( directionalLight.shadow.camera ))
 	scene.add(directionalLight);
 
 	//////////////////////////////////////////////////////////////////////////////////
@@ -175,17 +192,33 @@
 ;
 	(function() {
 		var geometry = new THREE.ConeGeometry( 1, 2, 3 );
-		var material	= new THREE.MeshNormalMaterial();
-		var material	= new THREE.MeshLambertMaterial();
+		//var material	= new THREE.MeshNormalMaterial();
+		var material	= new THREE.MeshPhongMaterial({
+					//color: 0x156289,
+					//emissive: 0x072534,
+					opacity: .9,
+					transparent: true
+				})
 		var mesh = new THREE.Mesh(geometry, material);
+		mesh.opacity = .5;
+		mesh.transparent = true;
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
 		mesh.position.y = 0.7
 		markerRoot.add(mesh);
 		directionalLight.target = mesh
 
+		// var light = new THREE.PointLight( 0xff0000, 2, 100 );
+		// light.position.x = 0;
+		// light.position.y = 0;
+		// //light.add( mesh );
+		// scene.add(light);
+		//markerRoot.add(light);
+
 		onRenderFcts.push(function() {
-			mesh.rotation.y += 0.04;
+			mesh.rotation.y += 0.01;
+			glowLight.position.set(mesh.position.x+.1,mesh.position.y+.1,mesh.position.z)
+
 		})
 
 		// add a transparent ground-plane shadow-receiver
@@ -226,7 +259,14 @@
 		var hue = ((window.rotaryValue || 0) + 40) * 255 / 80;
 		var hslString = "hsl(" + hue  + ", 100%, 50%)";
 		ambient.color = new THREE.Color(hslString);
+		//map range from -40,40 
+		//to -5,5
+
+		glowIntensity = (window.rotaryValue || 0 ) / 8;
+		glowLight.intensity = glowIntensity;
 		// console.log(hslString);
+
+
 
 		// call each update function
 		onRenderFcts.forEach(function(onRenderFct) {
