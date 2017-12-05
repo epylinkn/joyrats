@@ -1,4 +1,5 @@
 const path = require('path');
+const sslRedirect = require('heroku-ssl-redirect');
 const express = require('express');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
@@ -58,6 +59,7 @@ if (isDeveloping) {
     res.end();
   });
 } else {
+  app.use(sslRedirect());
   app.use(express.static(path.join(__dirname, '/../dist')));
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
