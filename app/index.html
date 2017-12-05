@@ -66,7 +66,7 @@
 	var scene = new THREE.Scene();
 
 	var ambient = new THREE.AmbientLight(0xc0ffee);
-	
+
 
 	var ourGlowColor = new THREE.Color("rgb(255, 255, 200)");
 	var glowIntensity = 1;
@@ -80,7 +80,7 @@
 	// var sphere = new THREE.SphereGeometry( 0.5, 16, 8 );
 	// glowLight.physicallyCorrectLights = true;
 	// glowLight.add( new THREE.Mesh( sphere, new THREE.MeshPhongMaterial( { color: 0xff0000 } ) ) )
-				
+
 
 
 	//scene.add(ambient);
@@ -256,18 +256,24 @@
 		var deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
 		lastTimeMsec = nowMsec
 
-		var hue = ((window.rotaryValue || 0) + 40) * 255 / 80;
+		var value = window.rotaryValue || 0;
+		var hue = (value + 40) * 255 / 80;
 		var hslString = "hsl(" + hue  + ", 100%, 50%)";
 		ambient.color = new THREE.Color(hslString);
-		//map range from -40,40 
+		//map range from -40,40
 		//to -5,5
 
-		glowIntensity = mapValue(Math.abs(window.rotaryValue || 0),0, 40, 5,-5);
+		// Make value positive if it's negative
+		if (value < 0) {
+			value += 40;
+		}
+
+		// Map glow intensity, e.g. 20 maps to -5, 0 & 40 map to +5
+		glowIntensity = mapValue(Math.abs(value - 20), 0, 20, -5, 5);
+
 		glowLight.intensity = glowIntensity;
-		console.log("intensity:"+glowIntensity);
+		// console.log("intensity:"+glowIntensity);
 		// console.log(hslString);
-
-
 
 		// call each update function
 		onRenderFcts.forEach(function(onRenderFct) {
@@ -275,14 +281,9 @@
 		})
 	})
 
-	function mapValue(value, low1, high1, low2, high2)
-	{
+	function mapValue(value, low1, high1, low2, high2) {
 		return (low2 + (value - low1) * (high2 - low2) / (high1 - low1));
-
 	}
-
-
-
 	</script>
 </body>
 </html>
