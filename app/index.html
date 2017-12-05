@@ -262,8 +262,9 @@
 		//map range from -40,40 
 		//to -5,5
 
-		glowIntensity = (window.rotaryValue || 0 ) / 8;
+		glowIntensity = mapValue(Math.abs(window.rotaryValue || 0),0, 40, 5,-5);
 		glowLight.intensity = glowIntensity;
+		console.log("intensity:"+glowIntensity);
 		// console.log(hslString);
 
 
@@ -273,6 +274,15 @@
 			onRenderFct(deltaMsec / 1000, nowMsec / 1000)
 		})
 	})
+
+	function mapValue(value, low1, high1, low2, high2)
+	{
+		return (low2 + (value - low1) * (high2 - low2) / (high1 - low1));
+
+	}
+
+
+
 	</script>
 </body>
 </html>
