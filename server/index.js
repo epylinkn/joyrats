@@ -54,6 +54,10 @@ if (isDeveloping) {
 
   app.use(middleware);
   app.use(webpackHotMiddleware(compiler));
+  app.get('/knob', (req, res) => {
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '/../dist/knob.html')));
+    res.end();
+  });
   app.get('*', (req, res) => {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '/../dist/index.html')));
     res.end();
@@ -61,6 +65,9 @@ if (isDeveloping) {
 } else {
   app.use(sslRedirect());
   app.use(express.static(path.join(__dirname, '/../dist')));
+  app.get("/knob", (req, res) => {
+    res.sendFile(path.join(__dirname, 'knob.html'));
+  })
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
   });

@@ -7,6 +7,11 @@ const plugins = [
     inject: 'body',
     filename: 'index.html',
   }),
+  new HtmlWebpackPlugin({
+    template: path.join(__dirname, '/../app/knob.html'),
+    inject: 'body',
+    filename: 'knob.html',
+  }),
 ];
 
 module.exports = plugins;
