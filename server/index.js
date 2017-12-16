@@ -68,15 +68,17 @@ if (isDeveloping) {
   });
 } else {
   app.use(sslRedirect());
-  app.use(express.static(path.join(__dirname, '/../dist')));
+  app.use(express.static(path.join(__dirname, '../dist')));
+
   app.get("/knob", (req, res) => {
-    res.sendFile(path.join(__dirname, 'knob.html'));
+    // res.sendFile('knob.html');
+    res.sendFile(path.join(__dirname, '../dist/knob.html'));
   });
   app.get("/arkanoid", (req, res) => {
-    res.sendFile(path.join(__dirname, 'arkanoid.html'));
+    res.sendFile(path.join(__dirname, '../dist/arkanoid.html'));
   });
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '../dist/index.html'));
   });
 }
 
