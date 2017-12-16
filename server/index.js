@@ -58,6 +58,10 @@ if (isDeveloping) {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '/../dist/knob.html')));
     res.end();
   });
+  app.get('/arkanoid', (req, res) => {
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '/../dist/arkanoid.html')));
+    res.end();
+  });
   app.get('*', (req, res) => {
     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '/../dist/index.html')));
     res.end();
@@ -67,7 +71,10 @@ if (isDeveloping) {
   app.use(express.static(path.join(__dirname, '/../dist')));
   app.get("/knob", (req, res) => {
     res.sendFile(path.join(__dirname, 'knob.html'));
-  })
+  });
+  app.get("/arkanoid", (req, res) => {
+    res.sendFile(path.join(__dirname, 'arkanoid.html'));
+  });
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
   });
