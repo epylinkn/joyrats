@@ -1,4 +1,4 @@
-# KNOB AR SERVER
+# JOYRATS.COM
 
 One Paragraph of project description goes here
 
