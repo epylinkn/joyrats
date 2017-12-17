@@ -1,21 +1,30 @@
-body {
-  background: #295618;
-  color: #FFF;
-  font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', sans-serif;
-}
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Open+Sans|Raleway');
 
-#root {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+body {
+  background: black;
+  color: #FFF;
+  font-family: 'Raleway', sans-serif;
+  border: 1rem solid white;
+  margin: 20px;
+  border-radius: 10px;
 }
 
 h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   text-align: center;
   font-weight: 200;
-  font-size: 1.5rem;
+  font-size: 5rem;
+
+  &.logo {
+    font-family: "Fredoka One";
+  }
+}
+
+p {
+  padding: 0 60px;
+}
+
+.rotations {
+  font-family: "Open Sans";
+  text-align: center;
+  font-size: 300px;
 }

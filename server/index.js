@@ -71,7 +71,6 @@ if (isDeveloping) {
   app.use(express.static(path.join(__dirname, '../dist')));
 
   app.get("/knob", (req, res) => {
-    // res.sendFile('knob.html');
     res.sendFile(path.join(__dirname, '../dist/knob.html'));
   });
   app.get("/arkanoid", (req, res) => {
