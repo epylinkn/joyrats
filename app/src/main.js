@@ -12,6 +12,11 @@ ws.onopen = function () {
 
 ws.onmessage = function (evt) {
   console.log(evt.data);
-  var input = parseInt(parseInt(evt.data) / 40);
+  var input = clamp(parseInt(parseInt(evt.data) / 40));
+
   $(".rotations").html(input);
 };
+
+function clamp(val) {
+  return Math.max(0, Math.min(1000, val));
+}
