@@ -10,11 +10,13 @@ ws.onopen = function () {
   console.log('connection opened');
 };
 
+
 ws.onmessage = function (evt) {
   console.log(evt.data);
-  var input = clamp(parseInt(parseInt(evt.data) / 40));
+  var input = parseInt(parseInt(evt.data) / 40);
+  var cleanValue = clamp(input);
 
-  $(".rotations").html(input);
+  $(".rotations").html(cleanValue);
 };
 
 function clamp(val) {
